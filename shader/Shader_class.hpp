@@ -12,6 +12,7 @@
 class Shader_class {
 public:
 	unsigned int ID;
+	Shader_class() = default;
 	Shader_class(const char* vs_shader,const char* fs_shader) {
 		std::string vertex_code;
 		std::string fragment_code;

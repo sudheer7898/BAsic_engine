@@ -2,6 +2,7 @@
 #include <GLFW/glfw3.h>
 #include <functional>
 #include<iostream>
+#include <vector>
 #include "../engine_state.hpp"
 
 enum class MouseInputType {
@@ -27,6 +28,10 @@ enum class KeyType {
 namespace Input {
     void Init();
 
+    void AddLayer();
+
+    void SwitchLayer(int LayerNum);
+
     void SetMouseClickCallback(MouseInputType button, std::function<void()> callback);
 
     // Overloaded: Version for standard ints (ASCII/GLFW_KEY_...)
@@ -36,4 +41,10 @@ namespace Input {
     void SetKeyboardCallback(KeyType key, std::function<void()> callback);
 
     bool IsKeyPressed(int key);
+
+    void getMousePos(float& x,float& y);
+
+    void UpdateSmoothing(float weight);
+
+    void GetSmoothedMousePos(float& x, float& y);
 }
