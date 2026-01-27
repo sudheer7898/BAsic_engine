@@ -1,6 +1,2 @@
-#include "helperFunction.hpp"
-
-void setAddress(std::shared_ptr<GameObject>& objPtr, GameObject* rawPtr)
-{
-	objPtr->m_parent = std::shared_ptr<GameObject>(rawPtr);
-}
+#include"helperFunction.hpp"
+//placed for helper functions in future

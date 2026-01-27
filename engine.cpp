@@ -5,7 +5,6 @@
 #include <chrono>
 #include <thread>
 
-// Static helper to handle GLFW startup
 void Engine::InitializeGLFW() {
     static bool initialized = false;
     if (!initialized) {
@@ -17,7 +16,6 @@ void Engine::InitializeGLFW() {
     }
 }
 
-// Constructor using Initializer List to fix C2280
 Engine::Engine(int width, int height, const char* title)
     : m_window((InitializeGLFW(), width), height, title)
 {
@@ -30,15 +28,13 @@ Engine::Engine(int width, int height, const char* title)
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 #endif
 
-    m_window.makeCurrent(); // Sets GEngine().window
+    m_window.makeCurrent(); 
 
-    // Load OpenGL function pointers
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
         std::cerr << "GLAD init failed\n";
         std::exit(-1);
     }
 
-    // Initialize the Input system callbacks
     Input::Init();
 	
 }
@@ -54,27 +50,22 @@ void Engine::run() {
     using clock = std::chrono::steady_clock;
     auto lastTime = clock::now();
     shaderProgram->use();
-
+	float* color = window.returnColor();
     while (!window.windowCloseStatus()) {
-        // 1. Calculate Delta Time
         auto now = clock::now();
         std::chrono::duration<double> frameTime = now - lastTime;
         lastTime = now;
         ctx.deltaTime = frameTime.count();
 
-        // 2. Clear Buffers
-        glClearColor(0.1f, 0.1f, 0.1f, 1.0f); // Dark grey background
+        glClearColor(color[0], color[1], color[2], color[3]); 
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        // 3. DRAWING LOGIC MUST BE HERE
         if (shaderProgram && ctx.activeScene) {
             renderer.renderScene(*ctx.activeScene);
         }
 
-        // 4. Swap buffers and Poll Events
         window.update();
 
-        // Frame limiting
         if (ctx.deltaTime < targetFrameTime) {
             std::this_thread::sleep_for(std::chrono::duration<double>(targetFrameTime - ctx.deltaTime));
         }

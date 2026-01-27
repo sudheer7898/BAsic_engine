@@ -42,7 +42,7 @@ void GameObject::setMeshData(const std::vector<float>& positions, const std::vec
 		return;
 	}
 	interLeaved_data.clear();
-	vertexCount = positions.size() / 3; // Assuming 3 components per vertex (x, y, z)
+	vertexCount = positions.size() / 3;
 	for (size_t i = 0; i < vertexCount; ++i) {
 		interLeaved_data.push_back(positions[i * 3]);     // x
 		interLeaved_data.push_back(positions[i * 3 + 1]); // y
@@ -85,7 +85,6 @@ void GameObject::Draw() const{
 			glDrawArrays(GL_TRIANGLE_STRIP, 0, static_cast<GLsizei>(vertexCount));	
 			break;
 		default:
-			// Handle unknown mode
 			break;
 	}
 }
@@ -101,7 +100,6 @@ void GameObject::Bind(){
 }
 
 void GameObject::setUpGPUBuffer(){
-	// Placeholder for GPU buffer setup
 	if (m_VBO==0) {
 		glGenBuffers(1, &m_VBO);
 	}

@@ -1,4 +1,1 @@
-#pragma once
-#include"Objects/gameObject.hpp"
-
-void setAddress(std::shared_ptr<GameObject>& objPtr, GameObject* rawPtr);
+//placed for helper functions in future
