@@ -99,6 +99,34 @@ void GameObject::Bind() {
 	glBindVertexArray(m_VAO);
 }
 
+void GameObject::translate(float axis[3]){
+	if (axis == nullptr) {
+		std::cout << "the translate axis pointer is null." << std::endl;
+		return;
+	}
+	glm::vec3 translateAxis = glm::vec3(axis[0], axis[1], axis[2]);
+	//glm::mat4 trans = glm::mat4(1.0f);
+	m_transform = glm::translate(m_transform, translateAxis);
+}
+
+void GameObject::rotate(float angle, float axis[3]){
+	if (axis == nullptr) {
+		std::cout << "the rotate axis pointer is null." << std::endl;
+		return;
+	}
+	glm::vec3 rotateAxis = glm::vec3(axis[0], axis[1], axis[2]);
+	m_transform = glm::rotate(m_transform, glm::radians(angle), rotateAxis);
+}
+
+void GameObject::scale(float axis[3]){
+	if (axis == nullptr) {
+		std::cout << "the scale axis pointer is null." << std::endl;
+		return;
+	}
+	glm::vec3 scaleAxis = glm::vec3(axis[0], axis[1], axis[2]);
+	m_transform = glm::scale(m_transform, scaleAxis);
+}
+
 void GameObject::setUpGPUBuffer() {
 	if (m_VBO == 0) {
 		glGenBuffers(1, &m_VBO);

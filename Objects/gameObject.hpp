@@ -57,6 +57,12 @@ public:
 
 	void Bind();
 
+	void translate(float axis[3]);
+
+	void rotate(float angle, float axis[3]);
+
+	void scale(float axis[3]);
+
 	std::shared_ptr<GameObject> m_parent = nullptr;
 private:
 	GameObject(const std::string& name, const uint32_t m_id = 0) : m_name(name), m_id(m_id), vertexCount(0) {
