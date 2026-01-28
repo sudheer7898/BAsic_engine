@@ -1,5 +1,7 @@
 #pragma once
 #include<glm/glm.hpp>
+#include<glm/gtc/matrix_transform.hpp>
+#include<glm/gtc/type_ptr.hpp>
 
 #include <string>
 #include <memory>
@@ -39,7 +41,7 @@ public:
 
 	bool SearchTag(std::string tag) const;
 
-	void setLayout(Layout layout,int num);
+	void setLayout(Layout layout, int num);
 
 	void setMeshData(const std::vector<float>& positions, const std::vector<float>& colors);
 
@@ -57,15 +59,15 @@ public:
 
 	std::shared_ptr<GameObject> m_parent = nullptr;
 private:
-	GameObject(const std::string& name,const uint32_t m_id=0) : m_name(name), m_id(m_id), vertexCount(0) {
+	GameObject(const std::string& name, const uint32_t m_id = 0) : m_name(name), m_id(m_id), vertexCount(0) {
 		setUpGPUBuffer();
 	}
 	std::vector<float> interLeaved_data = {};
 	size_t vertexCount = 0;
 	void setUpGPUBuffer(); // Placeholder for GPU buffer setup
-	unsigned int m_VBO=0, m_VAO=0; // OpenGL Buffer Objects
+	unsigned int m_VBO = 0, m_VAO = 0; // OpenGL Buffer Objects
 	int m_posAttributeLocation = 0;
 	int m_colorAttributeLocation = 1;
-	
+
 	DrawMode m_drawMode = DrawMode::TRIANGLES;
 };

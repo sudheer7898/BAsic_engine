@@ -13,7 +13,7 @@ class Shader_class {
 public:
 	unsigned int ID;
 	Shader_class() = default;
-	Shader_class(const char* vs_shader,const char* fs_shader) {
+	Shader_class(const char* vs_shader, const char* fs_shader) {
 		std::string vertex_code;
 		std::string fragment_code;
 		std::ifstream vShaderFile;
@@ -67,7 +67,7 @@ public:
 		glUniform1f(glGetUniformLocation(ID, name.c_str()), value);
 	}
 	void setVec2(const std::string& name, const glm::vec2& value) const {
-		glUniform2fv(glGetUniformLocation(ID,  name.c_str()), 1, &value[0]);
+		glUniform2fv(glGetUniformLocation(ID, name.c_str()), 1, &value[0]);
 	}
 	void setVec2(const std::string& name, float x, float y) const {
 		glUniform2f(glGetUniformLocation(ID, name.c_str()), x, y);

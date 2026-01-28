@@ -25,7 +25,7 @@ public:
     Window& getNativeWindow();
     void PrintWorld();
     void setShaderPaths(const std::string& vertexPath, const std::string& fragmentPath);
-	Scene* activeScene = GEngine().activeScene;
+    Scene* activeScene = GEngine().activeScene;
 private:
     // Helper to ensure GLFW is ready before the Window member is constructed
     static void InitializeGLFW();
@@ -34,6 +34,6 @@ private:
     bool show_frameRate = false;
     Window m_window; // Initialized via the constructor list
     Renderer renderer;
-	bool ShadersSet = false;
-	std::shared_ptr<Shader_class> shaderProgram = nullptr;
+    bool ShadersSet = false;
+    std::shared_ptr<Shader_class> shaderProgram = nullptr;
 };

@@ -2,13 +2,13 @@
 #include"../Objects/gameObject.hpp"
 class Scene {
 public:
-	Scene(std::string name){
+	Scene(std::string name) {
 		m_name = name;
 	}
 	std::string m_name;
 
 	void addObject(std::shared_ptr<GameObject> object);
-	
+
 	int searchObjectByID(uint32_t id);
 
 	int searchObjectByName(const std::string& name);

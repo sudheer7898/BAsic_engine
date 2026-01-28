@@ -9,7 +9,6 @@ struct EngineContext {
     int frameRate = 60;
     double deltaTime = 0.0;
     std::vector<std::shared_ptr<Scene>> scenes = { std::make_shared<Scene>("DefaultScene") };
-    // Change this to a pointer to avoid copying the whole scene vector/objects
     Scene* activeScene = scenes[0].get();
 };
 
