@@ -3,6 +3,7 @@
 #include "../scene/scene.hpp"
 #include "../shader/Shader_class.hpp"
 
+
 class Renderer {
 public:
 	Renderer() = default;
@@ -15,7 +16,7 @@ public:
 	void useShader();
 
 	void returnPtrShader(std::shared_ptr<Shader_class>& outShader) {
-		outShader =std::make_shared<Shader_class>(shader);
+		outShader = std::make_shared<Shader_class>(shader);
 	}
 
 	Renderer(const Renderer&) = delete;

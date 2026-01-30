@@ -1,5 +1,6 @@
 #pragma once
 #include"../Objects/gameObject.hpp"
+#include"../Camera/camera.hpp"
 class Scene {
 public:
 	Scene(std::string name) {

@@ -53,3 +53,4 @@ void Scene::deleteScene() {
 }
 
 void Scene::ActivateScene() { metaData.isActive = true; GEngine().activeScene = this; }
+
