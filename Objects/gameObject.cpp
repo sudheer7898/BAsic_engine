@@ -151,7 +151,6 @@ void GameObject::translate(float axis[3]) {
 		return;
 	}
 	glm::vec3 translateAxis = glm::vec3(axis[0], axis[1], axis[2]);
-	//glm::mat4 trans = glm::mat4(1.0f);
 	m_transform = glm::translate(m_transform, translateAxis);
 }
 

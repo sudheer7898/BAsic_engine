@@ -1,4 +1,3 @@
-// engine_context.hpp
 #pragma once
 #include"Scene/scene.hpp"
 struct GLFWwindow;

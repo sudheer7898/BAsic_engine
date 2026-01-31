@@ -78,8 +78,8 @@ private:
 	}
 	std::vector<float> interLeaved_data = {};
 	size_t vertexCount = 0;
-	void setUpGPUBuffer(); // Placeholder for GPU buffer setup
-	unsigned int m_VBO = 0, m_VAO = 0; // OpenGL Buffer Objects
+	void setUpGPUBuffer(); 
+	unsigned int m_VBO = 0, m_VAO = 0; 
 	int m_posAttributeLocation = 0;
 	int m_colorAttributeLocation = 1;
 	int m_texCoordAttributeLocation = 2;

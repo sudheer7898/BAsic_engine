@@ -1,8 +1,6 @@
 #include "input.hpp"
 #include <unordered_map>
 
-
-// Structure for a single Input Layer
 struct InputLayer {
     std::unordered_map<int, std::function<void()>> keyMap;
     std::unordered_map<int, std::function<void()>> mouseMap;
@@ -11,7 +9,6 @@ struct InputLayer {
 static float smoothedX = 0.0f;
 static float smoothedY = 0.0f;
 
-// Static storage
 static std::vector<InputLayer> layers;
 static int currentLayer = 0;
 
@@ -42,7 +39,6 @@ static void screenToNDC(GLFWwindow* window, double xpos, double ypos,float &ndcx
 
 namespace Input {
     void Init() {
-        // Create the default layer (Layer 0) immediately
         AddLayer();
 
         GLFWwindow* window = GEngine().window;
@@ -99,9 +95,8 @@ namespace Input {
     }
     void UpdateSmoothing(float weight) {
         float rawX, rawY;
-        getMousePos(rawX, rawY); // Use your existing NDC function
+        getMousePos(rawX, rawY); 
 
-        // Linear Interpolation (LERP) formula
         smoothedX += (rawX - smoothedX) * weight;
         smoothedY += (rawY - smoothedY) * weight;
     }

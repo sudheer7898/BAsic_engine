@@ -37,10 +37,8 @@ namespace Input {
 
     void SetMouseClickCallback(MouseInputType button, std::function<void()> callback);
 
-    // Overloaded: Version for standard ints (ASCII/GLFW_KEY_...)
     void SetKeyboardCallback(int key, std::function<void()> callback);
 
-    // Overloaded: Version for your custom Enum
     void SetKeyboardCallback(KeyType key, std::function<void()> callback);
 
     bool IsKeyPressed(int key);
