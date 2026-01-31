@@ -7,6 +7,8 @@
 #include <memory>
 #include <vector>
 
+class Texture_2D;
+
 enum class DrawMode {
 	POINTS,
 	LINES,
@@ -17,7 +19,8 @@ enum class DrawMode {
 
 enum class Layout {
 	POSITION,
-	COLOR
+	COLOR,
+	TEXCOORD
 };
 
 class GameObject {
@@ -28,6 +31,7 @@ public:
 		auto obj = std::shared_ptr<GameObject>(new GameObject(name, id_counter++));
 		return obj;
 	}
+	std::shared_ptr<Texture_2D> m_texture = nullptr;
 	std::string m_name;
 	std::vector<std::string>tags;
 	glm::mat4 m_transform = glm::mat4(1.0f);
@@ -44,6 +48,8 @@ public:
 	void setLayout(Layout layout, int num);
 
 	void setMeshData(const std::vector<float>& positions, const std::vector<float>& colors);
+
+	void setMeshData(const std::vector<float>& positions,const std::vector<float>& color,const std::vector<float>& texCoords);
 
 	void Draw() const;
 
@@ -63,6 +69,8 @@ public:
 
 	void scale(float axis[3]);
 
+	void setTexture(const std::string& texturePath);
+
 	std::shared_ptr<GameObject> m_parent = nullptr;
 private:
 	GameObject(const std::string& name, const uint32_t m_id = 0) : m_name(name), m_id(m_id), vertexCount(0) {
@@ -74,6 +82,6 @@ private:
 	unsigned int m_VBO = 0, m_VAO = 0; // OpenGL Buffer Objects
 	int m_posAttributeLocation = 0;
 	int m_colorAttributeLocation = 1;
-
+	int m_texCoordAttributeLocation = 2;
 	DrawMode m_drawMode = DrawMode::TRIANGLES;
 };

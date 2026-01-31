@@ -1,5 +1,5 @@
 #include"gameObject.hpp"
-#include<glad/glad.h>
+#include"../Texture/texture.hpp"
 #include<GLFW/glfw3.h>
 #include<iostream>
 void GameObject::setTags(std::string tag) {
@@ -26,6 +26,9 @@ void GameObject::setLayout(Layout layout, int num) {
 		break;
 	case Layout::COLOR:
 		m_colorAttributeLocation = num;
+		break;
+	case Layout::TEXCOORD:
+		m_texCoordAttributeLocation = num;
 		break;
 	default:
 		break;
@@ -63,6 +66,46 @@ void GameObject::setMeshData(const std::vector<float>& positions, const std::vec
 
 }
 
+void GameObject::setMeshData(const std::vector<float>& positions, const std::vector<float>& color, const std::vector<float>& texCoords){
+	if(vertexCount==0){
+		if (positions.size()/3 != color.size()/3 || positions.size()/3 != texCoords.size()/2) {
+			std::cout << "Positions, colors and texCoords size mismatch for object: " << m_name << std::endl;
+			return;
+		}
+		if (positions.empty() || color.empty() || texCoords.empty()) {
+			std::cout << "Empty positions, colors or texCoords data for object: " << m_name << std::endl;
+			return;
+		}
+		vertexCount = positions.size() / 3;
+		interLeaved_data.clear();
+		for (size_t i = 0; i < vertexCount; ++i) {
+			interLeaved_data.push_back(positions[i * 3]);     // x
+			interLeaved_data.push_back(positions[i * 3 + 1]); // y
+			interLeaved_data.push_back(positions[i * 3 + 2]); // z
+			interLeaved_data.push_back(color[i * 3]);        // r
+			interLeaved_data.push_back(color[i * 3 + 1]);    // g
+			interLeaved_data.push_back(color[i * 3 + 2]);    // b
+			interLeaved_data.push_back(texCoords[i * 2]);    // u
+			interLeaved_data.push_back(texCoords[i * 2 + 1]); // v
+		}
+		glBindVertexArray(m_VAO);
+		glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
+		glBufferData(GL_ARRAY_BUFFER, interLeaved_data.size() * sizeof(float), interLeaved_data.data(), GL_STATIC_DRAW);
+		// Position attribute
+		glVertexAttribPointer(m_posAttributeLocation, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
+		glEnableVertexAttribArray(m_posAttributeLocation);
+		// Color attribute
+		glVertexAttribPointer(m_colorAttributeLocation, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
+		glEnableVertexAttribArray(m_colorAttributeLocation);
+		// TexCoord attribute
+		glVertexAttribPointer(m_texCoordAttributeLocation, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
+		glEnableVertexAttribArray(m_texCoordAttributeLocation);
+	}
+	else {
+		std::cout << "Mesh data has already been set for object: " << m_name << std::endl;
+	}
+}
+
 void GameObject::Draw() const {
 	if (vertexCount == 0) {
 		std::cout << "No vertex data to draw for object: " << m_name << std::endl;
@@ -96,6 +139,9 @@ GameObject::~GameObject() {
 }
 
 void GameObject::Bind() {
+	if(m_texture){
+		m_texture->Bind();
+	}
 	glBindVertexArray(m_VAO);
 }
 
@@ -125,6 +171,14 @@ void GameObject::scale(float axis[3]) {
 	}
 	glm::vec3 scaleAxis = glm::vec3(axis[0], axis[1], axis[2]);
 	m_transform = glm::scale(m_transform, scaleAxis);
+}
+
+void GameObject::setTexture(const std::string& texturePath){
+	m_texture = std::make_shared<Texture_2D>(texturePath.c_str());
+	m_texture->SetParameter(TextureParams::WRAP_S, TextureValues::REPEAT);
+	m_texture->SetParameter(TextureParams::WRAP_T, TextureValues::REPEAT);
+	m_texture->SetParameter(TextureParams::MIN_FILTER, TextureValues::LINEAR_MIPMAP_LINEAR);
+	m_texture->SetParameter(TextureParams::MAG_FILTER, TextureValues::LINEAR);
 }
 
 void GameObject::setUpGPUBuffer() {

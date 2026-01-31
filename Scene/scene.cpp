@@ -54,3 +54,8 @@ void Scene::deleteScene() {
 
 void Scene::ActivateScene() { metaData.isActive = true; GEngine().activeScene = this; }
 
+void Scene::addCamaraToScene(std::shared_ptr<Camera3D> camerae)
+{
+	return;
+}
+

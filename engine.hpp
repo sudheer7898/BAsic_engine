@@ -26,6 +26,7 @@ public:
     void PrintWorld();
     void setShaderPaths(const std::string& vertexPath, const std::string& fragmentPath);
     Scene* activeScene = GEngine().activeScene;
+	
 private:
     // Helper to ensure GLFW is ready before the Window member is constructed
     static void InitializeGLFW();

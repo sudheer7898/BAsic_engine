@@ -32,6 +32,7 @@ public:
 
 	void deleteScene();
 	void ActivateScene();
+	void addCamaraToScene(std::shared_ptr<Camera3D> camera);
 private:
 	std::vector<std::shared_ptr<GameObject>> m_scene;
 };
