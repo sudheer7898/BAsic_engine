@@ -1,6 +1,6 @@
 #pragma once
 #include"../engine_state.hpp"
-#include "../scene/scene.hpp"
+#include "../Scene/scene.hpp"
 #include "../shader/Shader_class.hpp"
 
 
