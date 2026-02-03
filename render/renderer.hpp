@@ -4,7 +4,7 @@
 #include "../shader/Shader_class.hpp"
 
 
-class Renderer {
+class Renderer { 
 public:
 	Renderer() = default;
 	void renderScene(Scene& scene = *GEngine().activeScene);
